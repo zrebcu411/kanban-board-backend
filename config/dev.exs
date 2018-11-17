@@ -11,8 +11,14 @@ config :kanban, KanbanWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../assets", __DIR__)]]
+  watchers: [
+    node: [
+      "node_modules/brunch/bin/brunch",
+      "watch",
+      "--stdin",
+      cd: Path.expand("../assets", __DIR__)
+    ]
+  ]
 
 # ## SSL Support
 #
@@ -54,5 +60,5 @@ config :kanban, Kanban.Repo,
   username: "postgres",
   password: "postgres",
   database: "kanban_dev",
-  hostname: "localhost",
+  hostname: "postgres",
   pool_size: 10
