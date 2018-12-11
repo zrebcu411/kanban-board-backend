@@ -9,3 +9,9 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+alias Kanban.Accounts.User
+alias Kanban.Repo
+
+%User{email: "john.doe@gmail.com", name: "John Doe"} |> Repo.insert!()
+%User{email: "emma.watson@op.pl", name: "Emma Watson"} |> Repo.insert!()

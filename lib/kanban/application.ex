@@ -11,7 +11,7 @@ defmodule Kanban.Application do
       # Start the Ecto repository
       supervisor(Kanban.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(KanbanWeb.Endpoint, []),
+      supervisor(KanbanWeb.Endpoint, [])
       # Start your own worker by calling: Kanban.Worker.start_link(arg1, arg2, arg3)
       # worker(Kanban.Worker, [arg1, arg2, arg3]),
     ]
