@@ -1,0 +1,24 @@
+version: '3.6'
+
+services:
+  postgres:
+    image: 'postgres:11-alpine'
+    ports:
+      - '5432:5432'
+    container_name: 'postgres'
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+  graphql:
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - '4000:4000'
+    container_name: 'graphql'
+    volumes:
+      - ./config:/usr/src/app/config
+      - ./lib:/usr/src/app/lib
+      - ./priv:/usr/src/app/priv
