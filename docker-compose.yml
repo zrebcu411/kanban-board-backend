@@ -18,6 +18,7 @@ services:
     ports:
       - '4000:4000'
     container_name: 'graphql'
+    command: sh -c './wait-for-it.sh db:5432 -- mix do ecto.migrate, phx.server'
     volumes:
       - ./config:/usr/src/app/config
       - ./lib:/usr/src/app/lib
