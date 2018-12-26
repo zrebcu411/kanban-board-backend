@@ -17,7 +17,7 @@ defmodule Kanban.Accounts.User do
     |> cast(attrs, [:email, :name, :password])
     |> validate_required([:email, :name, :password])
     |> update_change(:email, &String.downcase/1)
-    |> unique_constraint(:email, message: :email_does_not_exist)
+    |> unique_constraint(:email, message: :email_already_used)
     |> put_password_hash()
   end
 

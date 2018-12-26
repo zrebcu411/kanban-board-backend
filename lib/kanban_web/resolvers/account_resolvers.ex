@@ -41,14 +41,21 @@ defmodule KanbanWeb.Resolvers.Accounts do
          {:ok, token, _} <- Accounts.Guardian.encode_and_sign(user) do
       {:ok, %{token: token}}
     else
-      # TODO: chandle errors
       error ->
-        IO.inspect(error)
+        {:ok, error}
     end
   end
 
+  def sign_up_errors({:error, %Ecto.Changeset{} = changeset}, _, _) do
+    errors =
+      changeset
+      |> Ecto.Changeset.traverse_errors(fn {err, _opts} -> err end)
+      |> Enum.flat_map(fn {_, err} -> err end)
+
+    {:ok, errors}
+  end
+
   def sign_up_errors(_, _, _) do
-    # TODO: changle errors
     {:ok, []}
   end
 

@@ -13,8 +13,7 @@ defmodule KanbanWeb.Schema.AccountTypes do
   end
 
   enum :sign_up_error do
-    value(:user_does_not_exist)
-    value(:password_invalid)
+    value(:email_already_used)
   end
 
   object :sign_up_response do
