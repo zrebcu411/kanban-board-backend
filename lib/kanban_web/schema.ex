@@ -6,15 +6,11 @@ defmodule KanbanWeb.Schema do
   alias KanbanWeb.Resolvers
   alias KanbanWeb.Middlewares
 
-  # def middleware(middleware, _field, %{identifier: :mutation}) do
-  #   middleware ++ [MyApp.Middlewares.HandleChangesetErrors]
-  # end
-
-  # def middleware(middleware, _field, _object), do: middleware
-
   query(name: "Query") do
-    field(:users, list_of(non_null(:user))) do
-      resolve(&Resolvers.Accounts.all_users/3)
+    field(:me, :user) do
+      middleware(Middlewares.Authentication)
+
+      resolve(&Resolvers.Accounts.me/3)
     end
   end
 
@@ -25,8 +21,6 @@ defmodule KanbanWeb.Schema do
       arg(:password, non_null(:string))
 
       resolve(&Resolvers.Accounts.sign_up/3)
-
-      middleware(Middlewares.ChangesetErrors)
     end
 
     field :signin, non_null(:sign_in_response) do

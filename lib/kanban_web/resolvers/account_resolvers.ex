@@ -32,8 +32,15 @@ end
 defmodule KanbanWeb.Resolvers.Accounts do
   alias Kanban.Accounts
 
-  def all_users(_root, _args, _info) do
-    {:ok, Kanban.Accounts.list_users()}
+  def me(_, _, %{context: %{current_user: current_user}}) do
+    case Kanban.Accounts.get_user(current_user.id) do
+      nil -> {:ok, nil}
+      user -> {:ok, user}
+    end
+  end
+
+  def me(_, _, _) do
+    {:ok, nil}
   end
 
   def sign_up(_, args, _) do
