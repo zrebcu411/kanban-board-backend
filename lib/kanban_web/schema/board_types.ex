@@ -7,4 +7,9 @@ defmodule KanbanWeb.Schema.BoardTypes do
     field(:color, non_null(:string))
     field(:private, non_null(:boolean))
   end
+
+  object :lane do
+    field(:id, non_null(:id))
+    field(:title, non_null(:string))
+  end
 end

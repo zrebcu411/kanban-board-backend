@@ -7,6 +7,8 @@ defmodule Kanban.Boards.Board do
     field(:private, :boolean, default: false)
     field(:title, :string)
 
+    has_many(:lanes, Kanban.Boards.Board)
+
     belongs_to(:user, Kanban.Accounts.User)
 
     timestamps()

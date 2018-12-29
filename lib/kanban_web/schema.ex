@@ -39,5 +39,11 @@ defmodule KanbanWeb.Schema do
       arg(:private, non_null(:boolean))
       resolve(&Resolvers.Boards.create_board/3)
     end
+
+    field :create_lane, non_null(:lane) do
+      arg(:board_id, non_null(:integer))
+      arg(:title, non_null(:string))
+      resolve(&Resolvers.Boards.create_lane/3)
+    end
   end
 end

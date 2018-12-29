@@ -11,4 +11,14 @@ defmodule KanbanWeb.Resolvers.Boards do
     |> Map.from_struct()
     |> Boards.create_board()
   end
+
+  def create_lane(_, args, info) do
+    user_id = info.context.current_user.id
+    board = Boards.get_user_board(args.board_id, user_id)
+
+    case board do
+      nil -> {:error, "User or board does not exist"}
+      _ -> Boards.create_lane(args)
+    end
+  end
 end

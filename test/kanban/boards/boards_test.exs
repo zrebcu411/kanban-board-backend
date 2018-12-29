@@ -66,4 +66,64 @@ defmodule Kanban.BoardsTest do
       assert %Ecto.Changeset{} = Boards.change_board(board)
     end
   end
+
+  describe "lanes" do
+    alias Kanban.Boards.Lane
+
+    @valid_attrs %{title: "some title"}
+    @update_attrs %{title: "some updated title"}
+    @invalid_attrs %{title: nil}
+
+    def lane_fixture(attrs \\ %{}) do
+      {:ok, lane} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Boards.create_lane()
+
+      lane
+    end
+
+    test "list_lanes/0 returns all lanes" do
+      lane = lane_fixture()
+      assert Boards.list_lanes() == [lane]
+    end
+
+    test "get_lane!/1 returns the lane with given id" do
+      lane = lane_fixture()
+      assert Boards.get_lane!(lane.id) == lane
+    end
+
+    test "create_lane/1 with valid data creates a lane" do
+      assert {:ok, %Lane{} = lane} = Boards.create_lane(@valid_attrs)
+      assert lane.title == "some title"
+    end
+
+    test "create_lane/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Boards.create_lane(@invalid_attrs)
+    end
+
+    test "update_lane/2 with valid data updates the lane" do
+      lane = lane_fixture()
+      assert {:ok, lane} = Boards.update_lane(lane, @update_attrs)
+      assert %Lane{} = lane
+      assert lane.title == "some updated title"
+    end
+
+    test "update_lane/2 with invalid data returns error changeset" do
+      lane = lane_fixture()
+      assert {:error, %Ecto.Changeset{}} = Boards.update_lane(lane, @invalid_attrs)
+      assert lane == Boards.get_lane!(lane.id)
+    end
+
+    test "delete_lane/1 deletes the lane" do
+      lane = lane_fixture()
+      assert {:ok, %Lane{}} = Boards.delete_lane(lane)
+      assert_raise Ecto.NoResultsError, fn -> Boards.get_lane!(lane.id) end
+    end
+
+    test "change_lane/1 returns a lane changeset" do
+      lane = lane_fixture()
+      assert %Ecto.Changeset{} = Boards.change_lane(lane)
+    end
+  end
 end
