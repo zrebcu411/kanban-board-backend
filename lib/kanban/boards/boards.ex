@@ -7,6 +7,19 @@ defmodule Kanban.Boards do
   alias Kanban.Repo
 
   alias Kanban.Boards.Board
+  alias Kanban.Boards.Lane
+
+  def data() do
+    Dataloader.Ecto.new(Repo, query: &query/2)
+  end
+
+  def query(_, %{resource: :lane}) do
+    Lane
+  end
+
+  def query(queryable, _) do
+    queryable
+  end
 
   @doc """
   Returns the list of boards.
@@ -109,8 +122,6 @@ defmodule Kanban.Boards do
   def change_board(%Board{} = board) do
     Board.changeset(board, %{})
   end
-
-  alias Kanban.Boards.Lane
 
   @doc """
   Returns the list of lanes.

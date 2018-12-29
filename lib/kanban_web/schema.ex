@@ -7,6 +7,20 @@ defmodule KanbanWeb.Schema do
   alias KanbanWeb.Resolvers
   alias KanbanWeb.Middlewares
 
+  alias Kanban.Boards
+
+  def context(ctx) do
+    loader =
+      Dataloader.new()
+      |> Dataloader.add_source(Boards, Boards.data())
+
+    Map.put(ctx, :loader, loader)
+  end
+
+  def plugins do
+    [Absinthe.Middleware.Dataloader] ++ Absinthe.Plugin.defaults()
+  end
+
   query(name: "Query") do
     field(:me, :user) do
       middleware(Middlewares.Authentication)

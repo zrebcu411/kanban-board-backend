@@ -4,6 +4,12 @@ defmodule KanbanWeb.Context do
   import Plug.Conn
 
   alias Kanban.Accounts
+  alias Kanban.Boards
+
+  # def dataloader() do
+  #   Dataloader.new()
+  #   |> Dataloader.add_source("22", Boards.data())
+  # end
 
   def init(opts), do: opts
 

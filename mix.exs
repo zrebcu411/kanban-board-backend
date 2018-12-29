@@ -47,7 +47,8 @@ defmodule Kanban.Mixfile do
       {:guardian, "~> 1.0"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.0"},
-      {:cors_plug, "~> 2.0"}
+      {:cors_plug, "~> 2.0"},
+      {:dataloader, "~> 1.0.4"}
     ]
   end
 
