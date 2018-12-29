@@ -5,6 +5,8 @@ defmodule Kanban.Boards.Lane do
   schema "lanes" do
     field(:title, :string)
 
+    has_many(:cards, Kanban.Boards.Card)
+
     belongs_to(:board, Kanban.Boards.Board)
 
     timestamps()

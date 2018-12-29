@@ -31,4 +31,14 @@ defmodule KanbanWeb.Resolvers.Boards do
       _ -> Boards.create_lane(args)
     end
   end
+
+  def create_card(_, args, info) do
+    user_id = info.context.current_user.id
+    board_with_lane = Boards.get_user_lane(args.lane_id, args.board_id, user_id)
+
+    case board_with_lane do
+      nil -> {:error, "User, board or lane does not exist"}
+      _ -> Boards.create_card(args)
+    end
+  end
 end

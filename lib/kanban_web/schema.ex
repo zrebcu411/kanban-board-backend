@@ -65,5 +65,12 @@ defmodule KanbanWeb.Schema do
       arg(:title, non_null(:string))
       resolve(&Resolvers.Boards.create_lane/3)
     end
+
+    field :create_card, non_null(:card) do
+      arg(:board_id, non_null(:integer))
+      arg(:lane_id, non_null(:integer))
+      arg(:title, non_null(:string))
+      resolve(&Resolvers.Boards.create_card/3)
+    end
   end
 end
