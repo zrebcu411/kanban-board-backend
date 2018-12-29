@@ -16,6 +16,10 @@ defmodule KanbanWeb.Schema.BoardTypes do
   object :lane do
     field(:id, non_null(:id))
     field(:title, non_null(:string))
+
+    field(:cards, non_null(list_of(non_null(:card)))) do
+      resolve(dataloader(Kanban.Boards, :cards, []))
+    end
   end
 
   object :card do
