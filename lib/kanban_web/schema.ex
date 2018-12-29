@@ -27,6 +27,12 @@ defmodule KanbanWeb.Schema do
       resolve(&Resolvers.Accounts.me/3)
     end
 
+    field(:board, non_null(:board)) do
+      arg(:id, non_null(:integer))
+      middleware(Middlewares.Authentication)
+      resolve(&Resolvers.Boards.board/3)
+    end
+
     field(:boards, non_null(list_of(non_null(:board)))) do
       middleware(Middlewares.Authentication)
       resolve(&Resolvers.Boards.boards/3)

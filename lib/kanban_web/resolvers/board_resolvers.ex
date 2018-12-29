@@ -1,6 +1,16 @@
 defmodule KanbanWeb.Resolvers.Boards do
   alias Kanban.Boards
 
+  def board(_, args, info) do
+    user_id = info.context.current_user.id
+    board = Boards.get_user_board(args.id, user_id)
+
+    case board do
+      nil -> {:error, "User or board does not exist"}
+      _ -> {:ok, board}
+    end
+  end
+
   def boards(_, _, info) do
     {:ok, Boards.list_user_boards(info.context.current_user.id)}
   end

@@ -4,7 +4,8 @@ defmodule KanbanWeb.Context do
   import Plug.Conn
 
   alias Kanban.Accounts
-  alias Kanban.Boards
+
+  # alias Kanban.Boards
 
   # def dataloader() do
   #   Dataloader.new()
