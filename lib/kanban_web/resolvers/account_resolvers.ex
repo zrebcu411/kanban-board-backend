@@ -32,8 +32,15 @@ end
 defmodule KanbanWeb.Resolvers.Accounts do
   alias Kanban.Accounts
 
-  def all_users(_root, _args, _info) do
-    {:ok, Kanban.Accounts.list_users()}
+  def me(_, _, %{context: %{current_user: current_user}}) do
+    case Kanban.Accounts.get_user(current_user.id) do
+      nil -> {:ok, nil}
+      user -> {:ok, user}
+    end
+  end
+
+  def me(_, _, _) do
+    {:ok, nil}
   end
 
   def sign_up(_, args, _) do
@@ -41,14 +48,21 @@ defmodule KanbanWeb.Resolvers.Accounts do
          {:ok, token, _} <- Accounts.Guardian.encode_and_sign(user) do
       {:ok, %{token: token}}
     else
-      # TODO: chandle errors
       error ->
-        IO.inspect(error)
+        {:ok, error}
     end
   end
 
+  def sign_up_errors({:error, %Ecto.Changeset{} = changeset}, _, _) do
+    errors =
+      changeset
+      |> Ecto.Changeset.traverse_errors(fn {err, _opts} -> err end)
+      |> Enum.flat_map(fn {_, err} -> err end)
+
+    {:ok, errors}
+  end
+
   def sign_up_errors(_, _, _) do
-    # TODO: changle errors
     {:ok, []}
   end
 

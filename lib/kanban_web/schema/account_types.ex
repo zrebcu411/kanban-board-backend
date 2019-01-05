@@ -5,7 +5,6 @@ defmodule KanbanWeb.Schema.AccountTypes do
     field(:id, non_null(:id))
     field(:email, non_null(:string))
     field(:name, non_null(:string))
-    field(:password_hash, non_null(:string))
   end
 
   object :sign_up_result do
@@ -13,8 +12,7 @@ defmodule KanbanWeb.Schema.AccountTypes do
   end
 
   enum :sign_up_error do
-    value(:user_does_not_exist)
-    value(:password_invalid)
+    value(:email_already_used)
   end
 
   object :sign_up_response do

@@ -1,5 +1,6 @@
 defmodule Kanban.Accounts.User do
   use Ecto.Schema
+  use Kanban.Schema
   import Ecto.Changeset
 
   schema "users" do
@@ -7,6 +8,8 @@ defmodule Kanban.Accounts.User do
     field(:name, :string)
     field(:password, :string, virtual: true)
     field(:password_hash, :string)
+
+    has_many(:boards, Kanban.Boards.Board)
 
     timestamps()
   end
@@ -17,7 +20,7 @@ defmodule Kanban.Accounts.User do
     |> cast(attrs, [:email, :name, :password])
     |> validate_required([:email, :name, :password])
     |> update_change(:email, &String.downcase/1)
-    |> unique_constraint(:email, message: :email_does_not_exist)
+    |> unique_constraint(:email, message: :email_already_used)
     |> put_password_hash()
   end
 
