@@ -4,6 +4,7 @@ defmodule Kanban.Boards.Card do
 
   schema "cards" do
     field(:title, :string)
+    field(:description, :string)
 
     belongs_to(:lane, Kanban.Boards.Lane)
 
@@ -13,8 +14,8 @@ defmodule Kanban.Boards.Card do
   @doc false
   def changeset(card, attrs) do
     card
-    |> cast(attrs, [:title, :lane_id])
-    |> validate_required([:title, :lane_id])
+    |> cast(attrs, [:title, :description, :lane_id])
+    |> validate_required([:title, :description, :lane_id])
     |> assoc_constraint(:lane)
   end
 end

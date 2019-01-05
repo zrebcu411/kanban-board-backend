@@ -5,6 +5,7 @@ defmodule KanbanWeb.Schema.BoardTypes do
   object :board do
     field(:id, non_null(:id))
     field(:title, non_null(:string))
+    field(:description, non_null(:string))
     field(:color, non_null(:string))
     field(:private, non_null(:boolean))
 
@@ -25,5 +26,6 @@ defmodule KanbanWeb.Schema.BoardTypes do
   object :card do
     field(:id, non_null(:id))
     field(:title, non_null(:string))
+    field(:description, non_null(:string))
   end
 end

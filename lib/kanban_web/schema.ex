@@ -55,6 +55,7 @@ defmodule KanbanWeb.Schema do
 
     field :create_board, non_null(:board) do
       arg(:title, non_null(:string))
+      arg(:description, non_null(:string))
       arg(:color, non_null(:string))
       arg(:private, non_null(:boolean))
       resolve(&Resolvers.Boards.create_board/3)
@@ -70,6 +71,7 @@ defmodule KanbanWeb.Schema do
       arg(:board_id, non_null(:integer))
       arg(:lane_id, non_null(:integer))
       arg(:title, non_null(:string))
+      arg(:description, non_null(:string))
       resolve(&Resolvers.Boards.create_card/3)
     end
   end

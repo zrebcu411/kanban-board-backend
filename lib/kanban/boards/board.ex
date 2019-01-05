@@ -6,6 +6,7 @@ defmodule Kanban.Boards.Board do
     field(:color, :string)
     field(:private, :boolean, default: false)
     field(:title, :string)
+    field(:description, :string)
 
     has_many(:lanes, Kanban.Boards.Board)
 
@@ -17,8 +18,8 @@ defmodule Kanban.Boards.Board do
   @doc false
   def changeset(board, attrs) do
     board
-    |> cast(attrs, [:title, :color, :private, :user_id])
-    |> validate_required([:title, :color, :private, :user_id])
+    |> cast(attrs, [:title, :description, :color, :private, :user_id])
+    |> validate_required([:title, :description, :color, :private, :user_id])
     |> assoc_constraint(:user)
   end
 end
