@@ -1,5 +1,6 @@
 defmodule Kanban.Boards.Card do
   use Ecto.Schema
+  use Kanban.Schema
   import Ecto.Changeset
 
   schema "cards" do

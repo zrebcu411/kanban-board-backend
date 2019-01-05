@@ -1,5 +1,6 @@
 defmodule Kanban.Accounts.User do
   use Ecto.Schema
+  use Kanban.Schema
   import Ecto.Changeset
 
   schema "users" do

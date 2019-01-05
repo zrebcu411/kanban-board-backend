@@ -1,5 +1,6 @@
 defmodule Kanban.Boards.Board do
   use Ecto.Schema
+  use Kanban.Schema
   import Ecto.Changeset
 
   schema "boards" do

@@ -1,5 +1,6 @@
 defmodule Kanban.Boards.Lane do
   use Ecto.Schema
+  use Kanban.Schema
   import Ecto.Changeset
 
   schema "lanes" do
