@@ -5,6 +5,7 @@ defmodule Kanban.Boards do
 
   import Ecto.Query, warn: false
   alias Kanban.Repo
+  alias Ecto.Query
 
   alias Kanban.Boards.Board
   alias Kanban.Boards.Lane
@@ -14,7 +15,7 @@ defmodule Kanban.Boards do
   end
 
   def query(_, %{resource: :lane}) do
-    Lane
+    Lane |> Query.order_by(asc: :created_at)
   end
 
   def query(queryable, _) do
